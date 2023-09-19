@@ -1,0 +1,310 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+<style>
+  section.instagram {
+    padding: 51px 0 40px;
+    width: min(95%, 414px);
+    text-align: center;
+    margin: 0 auto; /* Remove margin-inline: auto */
+  }
+
+  section.instagram p {
+    font-size: 16px;
+    margin-bottom: -10px;
+  }
+
+  section.instagram h2 {
+    margin-bottom: 18px;
+    color: var(--clr-secondary-brown);
+    font-size: 30px;
+  }
+
+  .instagram-gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    grid-gap: 15px; /* Adjust the gap between images as needed */
+    width: min(95%, 414px);
+    margin: 0 auto; /* Remove margin-inline: auto */
+  }
+
+  .big {
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+
+  .instagram-gallery div img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .instagram-gallery div:nth-child(7) img {
+    display: none;
+  }
+
+  @media (min-width: 800px) {
+    section.instagram {
+      padding: 51px 0 80px;
+      width: min(95%, 1719px);
+      text-align: left;
+      margin: 0 auto; /* Remove margin-inline: auto */
+    }
+
+    .instagram-container {
+      margin: 0 auto; /* Remove margin-inline: auto */
+    }
+
+    section.instagram h2 {
+      font-size: 48px;
+      font-weight: 700;
+      margin: 0;
+      margin-bottom: 20px;
+    }
+
+    section.instagram p {
+      font-size: 16px;
+      margin-bottom: -15px;
+    }
+
+    .instagram-gallery {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 20px;
+      width: min(100%, 1719px);
+      margin: 0 auto; /* Remove margin-inline: auto */
+      margin: 0; /* Remove duplicate margin property */
+    }
+
+    .instagram-gallery div:nth-child(7) img {
+      display: block;
+    }
+
+    .instagram-gallery div:nth-child(3) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+</style>
+
+<section
+  class="
+    instagram {% if section.settings.page_width == 'full-width' %}full-width
+    {% elsif section.settings.page_width == 'fixed-width' %}fixed-width
+    {% elsif section.settings.page_width == 'custom-width' %}custom-width
+    {% endif %}
+  "
+>
+  <div class="instagram-container">
+    <p>{{ section.settings.instagram_text }}</p>
+    <h2>{{ section.settings.instagram_header | upcase }}</h2>
+    <div class="instagram-gallery">
+      <div class="instagram-image">
+        {%- if section.settings.instagram_image01 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image01 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-01.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image02 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image02 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-02.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image03 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image03 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-03.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image04 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image04 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-04.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image05 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image05 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-05.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image06 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image06 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-01.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+      <div>
+        {%- if section.settings.instagram_image07 != blank -%}
+          <img
+            src="{{ section.settings.instagram_image07 | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'instagram-02.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Instagram",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Instagram Header",
+      "id": "instagram_header",
+      "default": "instagram"
+    },
+    {
+      "type": "text",
+      "label": "Instagram Text",
+      "id": "instagram_text",
+      "default": "Follow Us On"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 01",
+      "id": "instagram_image01"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 02",
+      "id": "instagram_image02"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 03",
+      "id": "instagram_image03"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 04",
+      "id": "instagram_image04"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 05",
+      "id": "instagram_image05"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 06",
+      "id": "instagram_image06"
+    },
+    {
+      "type": "image_picker",
+      "label": "Instagram Image 07",
+      "id": "instagram_image07"
+    },
+    {
+      "type": "select",
+      "label": "Page Width",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "fixed-width",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "custom-width",
+          "label": "Custom Width"
+        }
+      ],
+      "default": "custom-width"
+    }
+  ]
+}
+{% endschema %}

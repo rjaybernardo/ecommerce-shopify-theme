@@ -1,0 +1,123 @@
+{{ 'base.css' | asset_url | stylesheet_tag }}
+{{ 'banner.css' | asset_url | stylesheet_tag }}
+
+<section class="banner full-width">
+  <div class="banner__ellipse">
+    {% render 'ellipse' %}
+  </div>
+  <div class="banner__blur-right">
+    {% render 'blur-right' %}
+  </div>
+  <div class="banner__blur-left">
+    {% render 'blur-left' %}
+  </div>
+  <div class="banner__container">
+    <div class="banner__header">
+      <h1>{{ section.settings.header }}</h1>
+    </div>
+
+    <div
+      class="
+        banner__image-container
+        {% if section.settings.page_width == 'full-width' %}banner__image-container--full-width
+        {% elsif section.settings.page_width == 'fixed-width' %}banner__image-container--fixed-width
+        {% elsif section.settings.page_width == 'custom-width' %}banner__image-container--custom-width
+        {% endif %}
+      "
+    >
+      <div class="banner__image-left">
+        {%- if section.settings.left_image != blank -%}
+          {{ section.settings.left_image | image_url: width: 368 | image_tag }}
+        {%- else -%}
+          <img
+            src="{{ 'banner-image-01.png' | asset_url }}"
+            width="368"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+
+      <div class="banner__image-right">
+        {%- if section.settings.right_image != blank -%}
+          {{ section.settings.right_image | image_url: width: 468 | image_tag }}
+        {%- else -%}
+          <img
+            src="{{ 'banner-image-02.png' | asset_url }}"
+            width="468"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="banner__text-container">
+      <p class="banner__text">{{ section.settings.text }}</p>
+      <div class="banner__button">
+        <a href="{{ section.settings.shop_link }}" style="color: gray">
+          {% render 'icon-upright' %}
+        </a>
+        <p>Shop Now</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Header",
+      "id": "header",
+      "default": "Open Your World To Kayani"
+    },
+    {
+      "type": "text",
+      "label": "Text",
+      "id": "text",
+      "default": "Let's make your summer travel story an unforgettable one"
+    },
+    {
+      "type": "url",
+      "label": "Shop Link",
+      "id": "shop_link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "image_picker",
+      "label": "Left Image",
+      "id": "left_image"
+    },
+    {
+      "type": "image_picker",
+      "label": "Right Image",
+      "id": "right_image"
+    },
+    {
+      "type": "select",
+      "label": "Page Width",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "fixed-width",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "custom-width",
+          "label": "Custom Width"
+        }
+      ],
+      "default": "custom-width"
+    }
+  ]
+}
+{% endschema %}

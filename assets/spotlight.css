@@ -1,0 +1,234 @@
+section.fashion {
+  display: flex;
+  justify-content: center;
+  padding: 33px 0 50px;
+}
+
+.mobile-fashion {
+  height: 100%;
+  width: min(90%, 374px);
+  position: relative;
+}
+
+.mobile-fashion h2 {
+  font-size: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  width: 330px;
+}
+
+.mobile-fashion .fashion-button {
+  top: 40%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #646464;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  height: 65px;
+  width: 65px;
+  opacity: 0.7;
+  outline: #646464;
+  padding: 0;
+  z-index: 1;
+}
+.mobile-fashion .fashion-button svg {
+  width: 36px;
+  height: 36px;
+}
+
+.mobile-fashion .fashion-button.left {
+  left: 0;
+}
+
+.mobile-fashion .fashion-button.right {
+  right: 0;
+}
+
+.mobile-fashion .fashion-carousel {
+  padding: 0;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  grid-gap: 16px;
+  gap: 16px;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.fashion-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.fashion-carousel.no-transition {
+  scroll-behavior: auto;
+}
+
+.fashion-carousel.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
+}
+
+/* dragging */
+.fashion-carousel.dragging .fashion-card {
+  cursor: grab;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.fashion-carousel .fashion-card {
+  position: relative;
+  scroll-snap-align: start;
+  height: 450px;
+  /* height: 528px; */
+  list-style: none;
+  cursor: pointer;
+  /* padding-bottom: 15px; */
+  flex-direction: column;
+}
+
+.fashion-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.fashion-image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  z-index: -1;
+}
+
+.fashion-button-wrapper {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.fashion-button-wrapper p {
+  font-size: 17px;
+  margin: 0;
+}
+
+.fashion-button-wrapper a {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(100, 100, 100, 0.5294117647);
+  color: #646464;
+  width: 70px;
+  height: 70px;
+}
+
+.fashion-button-wrapper a svg {
+  color: #646464;
+  height: 38px;
+  width: 38px;
+}
+
+.fashion-desktop {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  section.fashion {
+    position: relative;
+    max-width: 1438px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fashion-desktop {
+    display: flex;
+    gap: 43px;
+  }
+  .mobile-fashion {
+    display: none;
+  }
+  .fashion.desktop {
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 43px;
+  }
+  .fashion-image-container {
+    position: relative;
+    width: 670px;
+    width: 100%;
+  }
+  .fashion-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .fashion-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: -1;
+  }
+  .fashion-image-container img:nth-child(1) {
+    margin-right: 42px;
+  }
+  .fashion-gallery {
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+  }
+  .fashion-gallery img {
+    width: min(100%, 352px);
+  }
+  .fashion-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .fashion-text-container .text-button {
+    display: flex;
+    padding-top: 20px;
+  }
+  .fashion-text-container .text-button h2 {
+    font-size: 71px;
+    letter-spacing: -2%;
+    text-align: left;
+    min-width: 500px;
+    line-height: 72px;
+  }
+  .fashion-text-container .text-button button {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+    margin-top: 60px;
+  }
+  .fashion-button-wrapper p {
+    font-size: 20px;
+  }
+  .fashion-button-wrapper a {
+    width: 100px;
+    height: 100px;
+  }
+  .fashion-button-wrapper a svg {
+    color: #646464;
+    height: 56px;
+    width: 56px;
+  }
+}

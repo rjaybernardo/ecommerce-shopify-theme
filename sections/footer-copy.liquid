@@ -1,0 +1,216 @@
+<footer>
+  <div class="footer-container">
+    <div class="ellipse">
+      {% render 'ellipse' %}
+    </div>
+    <div class="footer-text-desktop">
+      <div class="footer-mobile">
+        <h2>
+          Elevate your style game and <br class="mobile">
+          shop Kayani's unique <br class="mobile">
+          collection today!
+        </h2>
+        <div class="footer-image-mobile">
+          <img src="{{ 'footer-image-mobile.png' | asset_url }}" alt="">
+        </div>
+      </div>
+
+      <form action="/contact" method="post" class="newsletter-form">
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="newsletter-form__field-wrapper">
+          <div class="form-container">
+            <input
+              id="NewsletterForm--{{ section.id }}"
+              type="email"
+              class="form-input"
+              name="contact[email]"
+              value="{{ form.email }}"
+              aria-required="true"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                autofocus
+                aria-invalid="true"
+                aria-describedby="ContactFooter-error"
+              {% elsif form.posted_successfully? %}
+                aria-describedby="ContactFooter-success"
+              {% endif %}
+              placeholder="{{ 'newsletter.label' | t }}"
+              required
+            >
+            <label class="field__label" for="NewsletterForm--{{ section.id }}">
+              {{ 'newsletter.label' | t }}
+            </label>
+            <button
+              type="submit"
+              class="form-button"
+              name="commit"
+              id="Subscribe"
+              aria-label="{{ 'newsletter.button_label' | t }}"
+              style="color:white"
+            >
+              {% render 'icon-upright' %}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="footer-image-desktop">
+      <img src="{{ 'footer-image.png' | asset_url }}" alt="">
+    </div>
+  </div>
+</footer>
+
+{% style %}
+  footer {
+    padding: 40px 0 52px;
+    color: #ffffff;
+    background-color: #b2967d;
+  }
+
+  .footer-container {
+    width: min(90%, 374px);
+    margin-inline: auto;
+  }
+
+  footer h2 {
+    margin-bottom: 40px;
+    color: var(--clr-primary-white);
+    text-align: center;
+    font-size: 30px;
+  }
+  .footer-image-mobile {
+    width: min(95%, 374px);
+    grid-template-columns: 1fr;
+    height: 374px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .footer-image-mobile img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+  }
+
+  .form-container {
+    /* width: min(100%, 374px); */
+    display: flex;
+    height: 82px;
+    grid-area: form;
+  }
+  .form-input {
+    padding-left: 22px;
+    font-family: var(--ff-primary);
+    color: #808080;
+    font-size: 20px;
+    width: 100%;
+    border: 1px solid #fff;
+  }
+
+  .form-button {
+    background-color: var(--clr-secondary-beige);
+
+    padding: 18px;
+    border: 1px solid #fff;
+    display: grid;
+    align-content: center;
+  }
+
+  .footer-container form button svg {
+    color: var(--clr-primary-white);
+  }
+
+  .footer-image-desktop {
+    display: none;
+  }
+  footer .footer-container .ellipse {
+    display: none;
+  }
+
+  @media (min-width: 800px) {
+    .footer-image-mobile,
+    .mobile {
+      display: none;
+    }
+    .footer-image-desktop {
+      display: block;
+      width: 50%;
+    }
+    footer h2 {
+      margin-bottom: 40px;
+      color: var(--clr-primary-white);
+      text-align: left;
+      font-size: 48px;
+      line-height: 60px;
+    }
+    footer {
+      padding: 80px 0;
+    }
+    footer .footer-container {
+      display: flex;
+      justify-content: center;
+      width: min(90%, 1700px);
+      margin-inline: auto;
+      gap: 1rem;
+      position: relative;
+    }
+    footer .footer-container .ellipse {
+      display: block;
+      position: absolute;
+      z-index: 1;
+      top: -30px;
+      left: -100px;
+    }
+    footer .footer-container .ellipse svg {
+      width: 95%;
+      position: absolute;
+      left: 50px;
+    }
+    .footer-container form input {
+      font-size: 20px;
+    }
+    .footer-text-desktop {
+      flex: 1;
+      padding-right: 70px;
+      padding-top: 40px;
+      z-index: 2;
+    }
+    .footer-image-desktop {
+      overflow: hidden;
+      display: grid;
+      align-content: center;
+    }
+    /* .footer-image-desktop img {
+      height: 100%;
+    } */
+  }
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "Footer Section",
+  "settings": [
+    {
+      "type": "text",
+      "label": "Footer Text",
+      "id": "footer_text",
+      "default": "Elevate your style game and\nshop Kayani's unique\ncollection today!"
+    },
+    {
+      "type": "image_picker",
+      "label": "Footer Image (Mobile)",
+      "id": "footer_image_mobile",
+      "info": "Select an image for mobile view"
+    },
+    {
+      "type": "image_picker",
+      "label": "Footer Image (Desktop)",
+      "id": "footer_image",
+      "info": "Select an image for desktop view"
+    }
+  ]
+}
+{% endschema %}

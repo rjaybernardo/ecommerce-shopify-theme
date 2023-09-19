@@ -1,0 +1,332 @@
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="collection">
+  {% render 'blur-left' %}
+  {% render 'blur-right' %}
+
+  <div class="collection-header">
+    {% render 'ellipse-small' %}
+    <h1>{{ section.settings.collections_header }}</h1>
+  </div>
+  <div class="collection-container">
+    <div class="collection-card">
+      <h2>{{ section.settings.bestseller_title | upcase }}</h2>
+      <a href="/collections/{{section.settings.bestseller_link}}">VIEW ALL</a>
+
+      <div class="collection-card__image-container">
+        <div class="collection-card__image">
+          {%- if section.settings.bestsellers_image != blank -%}
+            <img
+              src="{{ section.settings.bestsellers_image | image_url }}"
+              width="auto"
+              height="auto"
+              alt=""
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'collection-bestseller.png' | asset_url }}"
+              width="auto"
+              height="auto"
+              alt="example"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="collection-card">
+      <h2>{{ section.settings.new_arrivals_title | upcase }}</h2>
+      <a href="/collections/{{section.settings.new_arrivals_link}}">VIEW ALL</a>
+
+      <div class="collection-card__image-container">
+        <div class="collection-card__image">
+          {%- if section.settings.new_arrivals_image != blank -%}
+            <img
+              src="{{ section.settings.new_arrivals_image | image_url }}"
+              width="auto"
+              height="auto"
+              alt=""
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'collection-new-arrivals.png' | asset_url }}"
+              width="auto"
+              height="auto"
+              alt="example"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+    <div class="collection-card">
+      <h2>{{ section.settings.dresses_title | upcase }}</h2>
+      <a href="/collections/{{section.settings.dresses_link}}">VIEW ALL</a>
+
+      <div class="collection-card__image-container">
+        <div class="collection-card__image">
+          {%- if section.settings.dresses_image != blank -%}
+            <img
+              src="{{ section.settings.dresses_image | image_url }}"
+              width="auto"
+              height="auto"
+              alt=""
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              src="{{ 'collection-dresses.png' | asset_url }}"
+              width="auto"
+              height="auto"
+              alt="example"
+              loading="lazy"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .collection {
+    margin-bottom: 50px;
+  }
+  .collection .blur {
+    display: none;
+  }
+  .collection-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 375px;
+    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+    margin-inline: auto;
+  }
+  .collection-header {
+    max-width: 370px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .collection-header svg {
+    position: absolute;
+    width: 165px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+  .collection-header h1 {
+    font-family: Cardo;
+    //  font-size: 48px;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -0.96px;
+    text-align: center;
+  }
+  .collection-card {
+    text-align: center;
+    background-color: white;
+    width: min(100%, 375px);
+    padding: 30px 20px;
+    margin: 0 auto;
+  }
+  .collection-card h2 {
+    font-family: Cardo;
+    font-size: 25px;
+    line-height: 35.671px;
+    margin: 0;
+  }
+  .collection-card a {
+    font-family: Unna;
+    font-size: 18px;
+    line-height: 25px;
+    text-decoration: none;
+    margin-bottom: 19px;
+    display: block;
+  }
+  .collection-card a:link,
+  .collection-card a:visited,
+  .collection-card a:active {
+    color: #b2967d;
+  }
+
+  .collection-card__image-container {
+    position: relative;
+    // height: 410px;
+    height: 300px;
+    width: min(95%, 300px);
+    margin: 0 auto;
+  }
+
+  .collection-card__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .collection-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+  @media (min-width: 700px) {
+    .collection {
+      padding-top: 100px;
+      margin-bottom: 107px;
+      position: relative;
+    }
+    .collection .blur {
+      display: block;
+      position: absolute;
+      z-index: -1;
+    }
+    .collection .blur-left {
+      left: 0;
+      bottom: -30%;
+    }
+    .collection .blur-right {
+      right: 0;
+      top: -10%;
+    }
+
+    .collection-container {
+      //grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+      //grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+      flex-direction: row;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .collection-header {
+      max-width: 1400px;
+      margin-bottom: 30px;
+    }
+    .collection-header svg {
+      width: 500px;
+      top: 50%;
+      left: 15%;
+      transform: translate(-50%, -50%);
+    }
+    .collection h1 {
+      margin: 0;
+      margin-bottom: 17px;
+      font-size: 72px;
+      text-align: left;
+    }
+
+    .collection-card {
+      text-align: center;
+      background-color: white;
+      width: 475px;
+      padding: 40px 0px;
+      margin: 0 auto;
+    }
+    .collection-card__image-container {
+      height: 410px;
+      width: min(95%, 410px);
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "t:sections.main-page.name",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collections_header",
+      "label": "Collections Header",
+      "default": "Our Unique Collections"
+    },
+    {
+      "type": "text",
+      "id": "bestseller_title",
+      "label": "Best Seller Title",
+      "default": "BestSellers"
+    },
+    {
+      "type": "collection",
+      "id": "bestseller_link",
+      "label": "Best Seller Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "bestseller_image",
+      "label": "Best Seller Image"
+    },
+    {
+      "type": "text",
+      "id": "new_arrivals_title",
+      "label": "New Arrivals Title",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "new_arrivals_link",
+      "label": "New Arrivals Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "new_arrivals_image",
+      "label": "New Arrivals Image"
+    },
+    {
+      "type": "text",
+      "id": "dresses_title",
+      "label": "New Arrivals Title",
+      "default": "Dresses"
+    },
+    {
+      "type": "collection",
+      "id": "dresses_link",
+      "label": "Dresses Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "dresses_image",
+      "label": "Dresses Image"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}

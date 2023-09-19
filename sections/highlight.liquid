@@ -1,0 +1,242 @@
+<section class="trending ">
+  <div class="trending-image">
+    {%- if section.settings.highlight_image != blank -%}
+      <img
+        src="{{ section.settings.highlight_image | image_url }}"
+        width="auto"
+        height="auto"
+        alt=""
+        loading="lazy"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'trending.png' | asset_url }}"
+        width="auto"
+        height="auto"
+        alt="example"
+        loading="lazy"
+      >
+    {%- endif -%}
+  </div>
+
+  <div class="trending-text-container">
+    <h2>{{ section.settings.header }}</h2>
+    <p class="trending-text">{{ section.settings.text }}</p>
+    <div class="highlight-button">
+      <a href="{{ section.settings.shop_link }}">
+        {% render 'icon-upright' %}
+      </a>
+      <p>Shop Now</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  section.trending {
+    background-color: #d5d5d7;
+    padding-bottom: 40px;
+  }
+
+  .trending-image {
+    position: relative;
+    height: 390px;
+
+    width: auto;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+
+  .trending-image img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left;
+    top: 0;
+  }
+
+  .trending-text-container {
+    width: min(90%, 374px);
+    background: #d5d5d7;
+    margin-inline: auto;
+    z-index: 2;
+  }
+
+  .trending-text-container h2 {
+    font-family: var(--ff-secondary);
+    font-size: 30px;
+    font-weight: 400;
+    margin: 40px 0 20px;
+  }
+
+  .trending-text-container .trending-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 22px;
+  }
+
+  .trending-text-container .button-wrapper {
+    color: #646464;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  .trending-text-container .button-wrapper p {
+    margin: 0;
+  }
+
+  .trending-text-container .button-wrapper button {
+    width: 70px;
+    height: 70px;
+    border: 1px solid #646464;
+    background-color: transparent;
+    margin-bottom: 6px;
+    margin-inline: auto;
+  }
+
+  .highlight-button {
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .highlight-button a {
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #64646487;
+    width: 70px;
+    height: 70px;
+  }
+  .highlight-button a svg {
+    color: #646464;
+  }
+  @media (min-width: 800px) {
+    section.trending {
+      width: 100%;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 0 auto;
+      position: relative;
+      height: 690px;
+    }
+    .trending-image-container {
+      position: relative;
+      height: 690px;
+      width: 1448px;
+    }
+    .trending-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .trending-image img {
+      object-fit: cover;
+      margin: 0 auto;
+      object-position: center top;
+    }
+
+    .trending-text-container {
+      background-color: transparent;
+      color: var(--clr-primary-white);
+      width: min(100%, 650px);
+      display: flex;
+      flex-direction: column;
+      margin-inline: unset;
+      margin-top: 14%;
+      margin-right: clamp(50px, 10vw, 244px);
+    }
+    .trending .button-wrapper {
+      text-align: center;
+      margin-inline: unset;
+      align-self: flex-end;
+    }
+
+    .trending-text-container h2 {
+      font-size: 48px;
+      font-family: Unna;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 60px;
+      letter-spacing: -0.96px;
+      color: var(--clr-primary-white);
+      font-family: var(--font-body-family);
+      margin: 0;
+    }
+    .trending-text-container .trending-text {
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 140%;
+    }
+    .trending-text-container .button-wrapper button {
+      color: #ffffff;
+      height: 100px;
+      width: 100px;
+    }
+    .highlight-button {
+      outline: none;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .highlight-button p {
+      font-size: 24px;
+      margin: 0;
+    }
+    .highlight-button a {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--clr-primary-white);
+      width: 100px;
+      height: 100px;
+    }
+    .highlight-button a svg {
+      color: var(--clr-primary-white);
+    }
+  }
+</style>
+{% schema %}
+{
+  "name": "Highlight",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "highlight_image",
+      "label": "Highlight Image"
+    },
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Section Header",
+      "default": "See What's Trending"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Section Text",
+      "default": "Check out KAYANI's must-have featured product! Designed with the modern woman in mind, it's a unique and eye-catching piece that combines trendiness with timelessness. Feel confident and powerful with this high-quality item, perfect for any occasion from a night out to a formal event."
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    }
+  ]
+}
+{% endschema %}

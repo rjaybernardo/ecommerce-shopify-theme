@@ -1,0 +1,213 @@
+{{ 'featured.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="
+    featured {% if section.settings.page_width == 'full-width' %}full-width
+    {% elsif section.settings.page_width == 'fixed-width' %}fixed-width
+    {% elsif section.settings.page_width == 'custom-width' %}custom-width
+    {% endif %}
+  "
+>
+  <style>
+    .wrapper .featured-button,
+    .wrapper .featured-details {
+      z-index: 1;
+    }
+  </style>
+  <div class="wrapper">
+    <h2>{{ section.settings.featured_header }}</h2>
+
+    <div class="left featured-button" id="left">
+      {% render 'icon-left' %}
+    </div>
+    <ul class="carousel">
+      {%- for product in collections[section.settings.featured_collection].products -%}
+        <li class="card">
+          <div class="featured-image">
+            {%- if product.featured_media.preview_image != blank -%}
+              {{ product.featured_media.preview_image | image_url: width: 800 | image_tag }}
+            {%- else -%}
+              <img
+                src="{{ 'featured-image-01.png' | asset_url }}"
+                width="468"
+                height="auto"
+                alt="example"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <div class="featured-details">
+            <p style="line-height:1em">{{ product.title }}</p>
+            <div class="featured-ratings">
+              <p>{{ product.price | money }}</p>
+              {% if product.ratings > 0 %}
+                {% for i in (1..product.ratings) %}
+                  {% render 'icon-star' %}
+                {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    {% comment %} <i id="right" class="fa-solid fa-angle-right"></i> {% endcomment %}
+    <div class="right featured-button" id="right">
+      {% render 'icon-right' %}
+    </div>
+  </div>
+</section>
+
+{% style %}
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const card = document.querySelector('.card');
+    const details = document.querySelector('.featured-details');
+
+    card.addEventListener('mouseover', function () {
+      details.classList.add('show');
+    });
+
+    card.addEventListener('mouseout', function () {
+      details.classList.remove('show');
+    });
+  });
+
+  const wrapper = document.querySelector('.wrapper');
+  const carousel = document.querySelector('.carousel');
+  const firstCardWidth = carousel.querySelector('.card').offsetWidth;
+  const arrowBtns = document.querySelectorAll('.wrapper .featured-button');
+  const carouselChildrens = [...carousel.children];
+
+  let isDragging = false,
+    isAutoPlay = true,
+    startX,
+    startScrollLeft,
+    timeoutId;
+
+  // Get the number of cards that can fit in the carousel at once
+  let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+  // Insert copies of the last few cards to beginning of carousel for infinite scrolling
+  carouselChildrens
+    .slice(-cardPerView)
+    .reverse()
+    .forEach((card) => {
+      carousel.insertAdjacentHTML('afterbegin', card.outerHTML);
+    });
+
+  // Insert copies of the first few cards to end of carousel for infinite scrolling
+  carouselChildrens.slice(0, cardPerView).forEach((card) => {
+    carousel.insertAdjacentHTML('beforeend', card.outerHTML);
+  });
+
+  // Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+  carousel.classList.add('no-transition');
+  carousel.scrollLeft = carousel.offsetWidth;
+  carousel.classList.remove('no-transition');
+
+  // Add event listeners for the arrow buttons to scroll the carousel left and right
+  arrowBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      carousel.scrollLeft += btn.id == 'left' ? -firstCardWidth : firstCardWidth;
+    });
+  });
+
+  const dragStart = (e) => {
+    isDragging = true;
+    carousel.classList.add('dragging');
+    // Records the initial cursor and scroll position of the carousel
+    startX = e.pageX;
+    startScrollLeft = carousel.scrollLeft;
+  };
+
+  const dragging = (e) => {
+    if (!isDragging) return; // if isDragging is false return from here
+    // Updates the scroll position of the carousel based on the cursor movement
+    carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+  };
+
+  const dragStop = () => {
+    isDragging = false;
+    carousel.classList.remove('dragging');
+  };
+
+  const infiniteScroll = () => {
+    // If the carousel is at the beginning, scroll to the end
+    if (carousel.scrollLeft === 0) {
+      carousel.classList.add('no-transition');
+      carousel.scrollLeft = carousel.scrollWidth - 2 * carousel.offsetWidth;
+      carousel.classList.remove('no-transition');
+    }
+    // If the carousel is at the end, scroll to the beginning
+    else if (Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+      carousel.classList.add('no-transition');
+      carousel.scrollLeft = carousel.offsetWidth;
+      carousel.classList.remove('no-transition');
+    }
+
+    // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+    clearTimeout(timeoutId);
+    if (!wrapper.matches(':hover')) autoPlay();
+  };
+
+  const autoPlay = () => {
+    if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+    // Autoplay the carousel after every 2500 ms
+    timeoutId = setTimeout(() => (carousel.scrollLeft += firstCardWidth), 2500);
+  };
+  autoPlay();
+
+  carousel.addEventListener('mousedown', dragStart);
+  carousel.addEventListener('mousemove', dragging);
+  document.addEventListener('mouseup', dragStop);
+  carousel.addEventListener('scroll', infiniteScroll);
+  wrapper.addEventListener('mouseenter', () => clearTimeout(timeoutId));
+  wrapper.addEventListener('mouseleave', autoPlay);
+</script>
+
+{% schema %}
+{
+  "name": "Featured",
+  "settings": [
+    {
+      "type": "text",
+      "id": "featured_header",
+      "label": "Featured Heading",
+      "default": "Looks You'll Love"
+    },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "select",
+      "label": "Page Width",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "fixed-width",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "custom-width",
+          "label": "Custom Width"
+        }
+      ],
+      "default": "custom-width"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured",
+      "category": "Collections"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,409 @@
+{{ 'section-about-us.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+            .section-{{ section.id }}-padding {
+              padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+              padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+            }
+
+            @media screen and (min-width: 750px) {
+              .section-{{ section.id }}-padding {
+                padding-top: {{ section.settings.padding_top }}px;
+                padding-bottom: {{ section.settings.padding_bottom }}px;
+              }
+            }
+        // Creation
+          .about-creation__text  {
+            }
+            .about-creation__text p {
+            margin-inline: auto;
+            width: min(90%, 375px);
+            font-family: Unna;
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 44px;
+            letter-spacing: -0.72px;
+          }
+          .about-creation__image {
+          width: min(90%, 375px);
+          margin-inline: auto;
+          position: relative;
+          min-height: 400px;
+        }
+        .about-creation__image-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+        @media (min-width: 900px) {
+        .about-creation {
+          width: min(90%, 1440px);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          margin: 0 auto;
+        }
+        .about-creation__image {
+          min-height: 720px;
+          width: min(90%, 720px);
+        }
+        .about-creation__text {
+          display: flex;
+          align-items: center;
+        }
+        .about-creation__text p {
+          line-height: 60px;
+            width: min(100%, 630px);
+            font-size: 48px;
+            font-weight: 400;
+          }
+      }
+
+        .about-creation__image-container img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          z-index: -1;
+        }
+        // Commitment
+    .about-commitment__text-container {
+      margin-inline: auto;
+            width: min(90%, 375px);
+    }
+    .about-commitment__text h2 {
+      font-size: 36px;
+      width: min(90%, 375px);
+      margin:24px auto 10px;
+  }
+    .about-commitment__text p{
+      font-family: Unna;
+      font-size: 18px;
+       font-style: normal;
+      font-weight: 400;
+      line-height: 25px;
+      width: min(90%, 375px);
+      margin:0 auto;
+  }
+
+    .about-commitment__image {
+      width: min(90%, 375px);
+      margin-inline: auto;
+      position: relative;
+      min-height: 400px;
+    }
+    .about-commitment__image-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .about-commitment__image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      z-index: -1;
+    }
+
+    @media (min-width: 900px) {
+      .about-commitment {
+        width: min(90%, 1440px);
+        display: grid;
+        gap: 24px;
+        grid-template-columns: 1fr 1fr;
+        margin: 0 auto 80px;
+      }
+      .about-commitment__image {
+        min-height: 720px;
+        width: min(100%, 720px);
+        order: 2;
+      }
+      .about-commitment__text {
+        font-size: 48px;
+        line-height: 60px;
+        max-width: 680px;
+        order: 1;
+
+        display: flex;
+        align-items: center;
+      }
+
+      .about-commitment__text h2 {
+        font-family: Unna;
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 60px;
+        letter-spacing: -0.96px;
+      width: min(90%, 680px);
+
+      }
+      .about-commitment__text p {
+        font-family: Unna;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 32px;
+      width: min(90%, 680px);
+      margin:0;
+
+      }
+{%- endstyle -%}
+
+<div class="about-container">
+  <div class="blur-top svg">
+    {%- render 'blur-right' -%}
+  </div>
+  <div class="blur-mid svg">
+    {%- render 'blur-left' -%}
+  </div>
+  <div class="blur-bottom svg">
+    {%- render 'blur-right' -%}
+  </div>
+  <div class="floral-left svg">
+    {%- render 'floral-left' -%}
+  </div>
+  <div class="floral-right svg">
+    {%- render 'floral-right' -%}
+  </div>
+
+  <div class="about-banner">
+    <div class="mobile">
+      {%- if section.settings['about-us__banner-mobile'] != blank -%}
+        <img
+          src="{{ section.settings.about-us__banner-mobile | image_url }}"
+          width="auto"
+          height="auto"
+          alt=""
+          loading="lazy"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'about-banner-mobile.png' | asset_url }}"
+          width="auto"
+          height="auto"
+          alt="example"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+    <div class="desktop section-{{ section.id }}-padding">
+      {%- if section.settings['about-us__banner-desktop'] != blank -%}
+        <img
+          src="{{ section.settings.about-us__banner-desktop | image_url }}"
+          width="auto"
+          height="auto"
+          alt=""
+          loading="lazy"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'about-banner-desktop.png' | asset_url }}"
+          width="auto"
+          height="auto"
+          alt="example"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="about-established">
+    <div class="about-established__image">
+      <div class="about-established__image-container">
+        {%- if section.settings.established_image != blank -%}
+          <img
+            src="{{ section.settings.established_image | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'about-established.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="about-established__text">
+      <h1 class="main-page-title ">
+        {{ section.settings.about_header }}
+      </h1>
+
+      <p>
+        Established in 2019, KAYANI is a distinctive fashion label founded by Sonena Kayani Rahber and Natalie Henriksen
+        through their collaborative enterprise, House of Nia. Boasting a decade of experience in the fashion realm, the
+        duo sought to fill a perceived void in the market by creating a brand that empowers women with a uniquely
+        stylish wardrobe.
+      </p>
+      <p>
+        Catering to the contemporary woman, KAYANI masterfully fuses romantic prints and colors, imbuing each design
+        with a blend of femininity and strength. The name 'Kayani' was specifically chosen for its regal, timeless, and
+        feminine allure, while the collection itself is crafted with love, joy, and a sense of fun.
+      </p>
+      <p>
+        Ultimately, KAYANI's mission is to offer women elegant and empowering attire that encourages self-confidence and
+        the expression of individuality.
+      </p>
+    </div>
+  </div>
+  <div class="about-creation">
+    <div class="about-creation__image">
+      <div class="about-creation__image-container">
+        {%- if section.settings.creation_image != blank -%}
+          <img
+            src="{{ section.settings.creation_image | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'about-creation.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="about-creation__text">
+      <p>
+        Kayani is the creation of two women with a love for fashion and a vision to inspire women around the world to
+        feel beautiful.
+      </p>
+    </div>
+  </div>
+
+  <div class="about-commitment">
+    <div class="about-commitment__image">
+      <div class="about-commitment__image-container">
+        {%- if section.settings.commitment_image != blank -%}
+          <img
+            src="{{ section.settings.commitment_image | image_url }}"
+            width="auto"
+            height="auto"
+            alt=""
+            loading="lazy"
+          >
+        {%- else -%}
+          <img
+            src="{{ 'about-commitment.png' | asset_url }}"
+            width="auto"
+            height="auto"
+            alt="example"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="about-commitment__text">
+      <div class="about-commitment__text-container">
+        <h2>Our Commitment</h2>
+        <p>
+          The community that #kayanigirls provide welcomes everyone - our family, friends, our team, our customers, our
+          photographers, models & social media followers. Everyone is united by the cause of supporting each other.
+          Togheter - we are one.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Us",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "about-us__banner-mobile",
+      "label": "Banner Image Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "about-us__banner-desktop",
+      "label": "Banner Image Desktop"
+    },
+    {
+      "type": "text",
+      "label": "Header",
+      "id": "about_header",
+      "default": "Our heart"
+    },
+    {
+      "type": "richtext",
+      "label": "Established text",
+      "id": "about_text",
+      "default": "<p>Established in 2019, KAYANI is a distinctive fashion label founded by Sonena Kayani Rahber and Natalie Henriksen through their collaborative enterprise, House of Nia. Boasting a decade of experience in the fashion realm, the duo sought to fill a perceived void in the market by creating a brand that empowers women with a uniquely stylish wardrobe.<br> Catering to the contemporary woman, KAYANI masterfully fuses romantic prints and colors, imbuing each design with a blend of femininity and strength. The name 'Kayani' was specifically chosen for its regal, timeless, and feminine allure, while the collection itself is crafted with love, joy, and a sense of fun.<br>Ultimately, KAYANI's mission is to offer women elegant and empowering attire that encourages self-confidence and the expression of individuality. </p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "established_image",
+      "label": "Established Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "creation_image",
+      "label": "Creation Image"
+    },
+    {
+      "type": "text",
+      "id": "creation_text",
+      "label": "Creation Text",
+      "default": "Kayani is the creation of two women with a love for fashion and a vision to inspire women around the world to feel beautiful. "
+    },
+    {
+      "type": "text",
+      "id": "commitment_header",
+      "label": "Commitment Header",
+      "default": "Our Commitment"
+    },
+    {
+      "type": "text",
+      "id": "commitment_text",
+      "label": "Commitment Text",
+      "default": "The community that #kayanigirls provide welcomes everyone - our family, friends, our team, our customers, our photographers, models & social media followers. Everyone is united by the cause of supporting each other. Together - we are one. "
+    },
+
+    {
+      "type": "image_picker",
+      "id": "commitment_image",
+      "label": "Commitment Image"
+    },
+    {
+      "type": "select",
+      "label": "Page Width",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "fixed-width",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "custom-width",
+          "label": "Custom Width"
+        }
+      ],
+      "default": "full-width"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,200 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<style>
+  .contact {
+    width: min(90%, 414px);
+    margin: 40px auto;
+  }
+  .contact h2 {
+    font-family: Unna;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: -0.96px;
+    margin: 0;
+  }
+  .contact form {
+    background-color: white;
+    padding: 40px 20px;
+  }
+  .contact form input,
+  .contact form textarea {
+    border: 0.5px solid #d8d8d8;
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: Cardo;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  .contact form input {
+    height: 55px;
+    padding-left: 10px;
+  }
+  .contact form textarea {
+    height: 156px;
+    padding-left: 10px;
+    padding-top: 18px;
+  }
+  .contact form .submit input {
+    width: 196.127px;
+    height: 55.161px;
+    background-color: #5a3b21;
+    color: white;
+  }
+  .contact h2.desktop {
+    display: none;
+  }
+  @media (min-width: 800px) {
+    .contact h2.mobile {
+      display: none;
+    }
+    .contact h2.desktop {
+      display: block;
+      font-size: 72px;
+      margin-bottom: 19px;
+    }
+    .contact {
+      width: min(90%, 651px);
+      margin: 100px auto;
+    }
+  }
+</style>
+<div
+  class="    contact "
+>
+  <h2 class="mobile">Contact Us</h2>
+  {% form 'contact' %}
+    {{ form.errors | default_errors }}
+    <h2 class="desktop">Contact Us</h2>
+
+    <div class="name">
+      <input type="text" name="contact[first_name]" id="first-name" placeholder="Name">
+    </div>
+
+    <div class="email">
+      <input type="email" name="contact[email]" id="email" placeholder="Email">
+    </div>
+
+    <div class="phone">
+      <input type="tel" name="contact[phone]" id="phone" placeholder="Phone Number">
+    </div>
+
+    <div class="message">
+      <textarea name="contact[body]" id="message" placeholder="Message"></textarea>
+    </div>
+
+    <div class="submit">
+      <input type="submit" value="Send">
+    </div>
+  {% endform %}
+</div>
+{% schema %}
+{
+  "name": "t:sections.contact-form.name",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "default": "Contact form",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "background-1"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    },
+    {
+      "type": "select",
+      "label": "Page Width",
+      "id": "page_width",
+      "options": [
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        },
+        {
+          "value": "fixed-width",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "custom-width",
+          "label": "Custom Width"
+        }
+      ],
+      "default": "custom-width"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.contact-form.presets.name"
+    }
+  ]
+}
+{% endschema %}
